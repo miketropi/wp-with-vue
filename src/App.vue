@@ -1,28 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <MainHeader />
+    <div class="container mx-auto px-4">
+      <PostsLoop v-if="posts.length > 0" :posts="posts" />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MainHeader from './components/MainHeader.vue';
+import PostsLoop from './components/PostsLoop.vue';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  components: { MainHeader, PostsLoop },
+  created() {
+    this.$store.dispatch('fetchPosts')
+  },
+  computed: {
+    posts() {
+      return this.$store.state.posts
+    }
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
 }
 </style>
